@@ -1,0 +1,24 @@
+{
+  "channels": 3,
+  "training_mode": "train",
+  "num_epochs": 100,
+  "learning_rate": 0.0001,
+  "discriminator_learning_rate": 0.00001,
+  "batch_size": 16,
+  "summary_dir":"C:\\Users\\Sava\\Documents\\ESRGAN\\logs\\",
+  "checkpoint_dir":"C:\\Users\\Sava\\Documents\\ESRGAN\\checkpoint\\",
+  "image_dir": "C:\\Users\\Sava\\Documents\\ESRGAN\\data\\Train\\",
+  "shrink": true,
+  "max_to_keep": 10,
+  "patch_size": 128,
+  "train": {
+    "lr_G": 1e-4,
+    "lr_D": 1e-4,
+    "pixel_weight": 100,
+    "feature_weight": 1,
+    "gan_weight": 1
+  },
+  "files": {
+    "vgg19_npy_path": "C:\\Users\\Sava\\Documents\\ESRGAN\\vgg\\vgg19.npy"
+  }
+}

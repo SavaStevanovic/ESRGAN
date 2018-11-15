@@ -1,12 +1,13 @@
 import tensorflow as tf
 
-from data_loader.data_generator import DataGenerator
-from models.example_model import ExampleModel
-from trainers.example_trainer import ExampleTrainer
+import data_loader.image_loader as il
+from models.ESRGAN import ESRGAN
+from trainers.ESRGANtrainer import ESRGANTrainer
 from utils.config import process_config
 from utils.dirs import create_dirs
 from utils.logger import Logger
 from utils.utils import get_args
+from utils.session import session_initialiser
 
 
 def main():
@@ -14,7 +15,7 @@ def main():
     # then process the json configuration file
     try:
         args = get_args()
-        config = process_config(args.config)
+        config = process_config("C:\\Users\\Sava\\Documents\\ESRGAN\\configs\\config.json")
 
     except:
         print("missing or invalid arguments")
@@ -23,17 +24,16 @@ def main():
     # create the experiments dirs
     create_dirs([config.summary_dir, config.checkpoint_dir])
     # create tensorflow session
-    sess = tf.Session()
+    sess = session_initialiser()
     # create your data generator
-    data = DataGenerator(config)
-    
+    data = il.ImageLoader(config)
     # create an instance of the model you want
-    model = ExampleModel(config)
+    model = ESRGAN(config)
     # create tensorboard logger
     logger = Logger(sess, config)
     # create trainer and pass all the previous components to it
-    trainer = ExampleTrainer(sess, model, data, config, logger)
-    #load model if exists
+    trainer = ESRGANTrainer(sess, model, data, config, logger)
+    # load model if exists
     model.load(sess)
     # here you train your model
     trainer.train()

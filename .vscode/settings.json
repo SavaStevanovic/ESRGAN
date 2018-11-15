@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\Sava\\Anaconda2\\envs\\tensorflow\\python.exe"
+    "python.pythonPath": "C:\\Users\\Sava\\Anaconda2\\envs\\tensorflow\\python.exe",
+    "git.ignoreLimitWarning": true
 }

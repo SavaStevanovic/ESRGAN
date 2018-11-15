@@ -1,7 +1,9 @@
 import json
-from bunch import Bunch
 import os
+from types import SimpleNamespace
 
+def dict_to_sns(d):
+    return SimpleNamespace(**d)
 
 def get_config_from_json(json_file):
     """
@@ -11,16 +13,11 @@ def get_config_from_json(json_file):
     """
     # parse the configurations from the config json file provided
     with open(json_file, 'r') as config_file:
-        config_dict = json.load(config_file)
+        config = json.load(config_file, object_hook=dict_to_sns)
 
-    # convert the dictionary to a namespace using bunch lib
-    config = Bunch(config_dict)
-
-    return config, config_dict
+    return config
 
 
 def process_config(json_file):
-    config, _ = get_config_from_json(json_file)
-    config.summary_dir = os.path.join("../experiments", config.exp_name, "summary/")
-    config.checkpoint_dir = os.path.join("../experiments", config.exp_name, "checkpoint/")
+    config = get_config_from_json(json_file)
     return config
